@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { SongService } from 'src/app/services/songs.service';
+
 
 @Component({
   selector: 'app-songs',
@@ -9,8 +9,6 @@ import { SongService } from 'src/app/services/songs.service';
 })
 export class SongsComponent implements OnInit {
   songs: any[] = [];
-  newSong: any = {};
-  @ViewChild('songForm') songForm!: NgForm;
 
   constructor(private songService: SongService) { }
 
@@ -23,34 +21,8 @@ export class SongsComponent implements OnInit {
       (data: any[]) => {
         this.songs = data;
       },
-      (error) => {
-        console.error('Erro ao carregar músicas:', error);
-      }
-    );
-  }
-
-  onSubmit(): void {
-    this.songService.createSong(this.newSong).subscribe(
-      (data) => {
-        console.log('Música adicionada com sucesso:', data);
-        this.newSong = {};
-        this.loadSongs();
-        this.songForm.resetForm();
-      },
-      (error) => {
-        console.error('Erro ao adicionar música:', error);
-      }
-    );
-  }
-
-  onDelete(id: string) {
-    this.songService.deleteSong(id).subscribe(
-      () => {
-        console.log('Música excluída com sucesso');
-        this.loadSongs();
-      },
-      (error) => {
-        console.error('Erro ao excluir música:', error);
+      (error: any) => {
+        console.error('Error fetching songs:', error);
       }
     );
   }

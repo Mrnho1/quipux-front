@@ -6,21 +6,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SongService {
-  private apiUrl = 'http://localhost:8080/songs';
+  private baseUrl = 'http://localhost:8080/songs';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllSongs(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}`);
+    return this.http.get<any[]>(`${this.baseUrl}`);
   }
 
-  createSong(songData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}`, songData);
-  }
-
-  deleteSong(id: string): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<any>(url);
-  }
 }
-
