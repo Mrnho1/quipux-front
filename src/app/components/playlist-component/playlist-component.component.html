@@ -1,6 +1,7 @@
 <div>
     <h1>Playlists</h1>
   
+    <!-- Formulário para criar nova playlist -->
     <form [formGroup]="playlistForm" (ngSubmit)="onSubmit()">
       <label for="name">Playlist Name:</label>
       <input type="text" id="name" formControlName="name" required>
@@ -9,9 +10,11 @@
       <button type="submit" [disabled]="!playlistForm.valid">Create Playlist</button>
     </form>
   
+    <!-- Lista de playlists existentes -->
     <ul>
       <li *ngFor="let playlist of playlists">
         <strong>{{ playlist.name }}</strong> - {{ playlist.description }}
+        <button (click)="onDelete(playlist.name)">Delete</button>
       </li>
     </ul>
   </div>

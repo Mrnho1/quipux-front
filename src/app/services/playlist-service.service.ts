@@ -18,4 +18,8 @@ export class PlaylistServiceService {
   createPlaylist(playlistData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}`, playlistData);
   }
+
+  deletePlaylistByName(name: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/name/${name}`);
+  }
 }

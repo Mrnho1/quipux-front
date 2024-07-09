@@ -10,21 +10,31 @@ import { PlaylistServiceService } from 'src/app/services/playlist-service.servic
 })
 export class PlaylistComponentComponent implements OnInit {
   playlists: any[] = [];
-  playlistForm: FormGroup = new FormGroup({});
+  playlistForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private playlistService: PlaylistServiceService
-  ) { }
-
-  ngOnInit(): void {
-    this.loadPlaylists();
-
+  ) {
     this.playlistForm = this.fb.group({
       name: ['', Validators.required],
       description: ['']
     });
+  }
 
+  ngOnInit(): void {
+    this.loadPlaylists();
+  }
+
+  loadPlaylists(): void {
+    this.playlistService.getAllPlaylists().subscribe(
+      (data: any[]) => {
+        this.playlists = data;
+      },
+      (error: any) => {
+        console.error('Error fetching playlists', error);
+      }
+    );
   }
 
   onSubmit(): void {
@@ -35,26 +45,29 @@ export class PlaylistComponentComponent implements OnInit {
       };
 
       this.playlistService.createPlaylist(playlistData).subscribe(
-        (response) => {
-          console.log('Playlist created successfully', response);
+        () => {
+          console.log('Playlist created successfully');
           this.loadPlaylists();
           this.playlistForm.reset();
         },
-        (error) => {
+        (error: any) => {
           console.error('Error creating playlist', error);
         }
       );
     }
   }
 
-  private loadPlaylists(): void {
-    this.playlistService.getAllPlaylists().subscribe(
-      (data: any[]) => {
-        this.playlists = data;
-      },
-      (error: any) => {
-        console.error('Error fetching playlists', error);
-      }
-    );
+  onDelete(name: string): void {
+    if (confirm(`Gostaria mesmo de deletar a playlist '${name}'?`)) {
+      this.playlistService.deletePlaylistByName(name).subscribe(
+        () => {
+          console.log('Playlist deletada com sucesso');
+          this.loadPlaylists();
+        },
+        (error: any) => {
+          console.error('Error deleting playlist', error);
+        }
+      );
+    }
   }
 }
