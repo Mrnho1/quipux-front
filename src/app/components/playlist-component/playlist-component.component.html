@@ -1,6 +1,18 @@
 <div>
     <h1>Playlists</h1>
+  
+    <form [formGroup]="playlistForm" (ngSubmit)="onSubmit()">
+      <label for="name">Playlist Name:</label>
+      <input type="text" id="name" formControlName="name" required>
+      <label for="description">Description:</label>
+      <textarea id="description" formControlName="description"></textarea>
+      <button type="submit" [disabled]="!playlistForm.valid">Create Playlist</button>
+    </form>
+  
     <ul>
-        <li *ngFor="let playlist of playlists">{{ playlist.name }}</li>
+      <li *ngFor="let playlist of playlists">
+        <strong>{{ playlist.name }}</strong> - {{ playlist.description }}
+      </li>
     </ul>
-</div>
+  </div>
+  
