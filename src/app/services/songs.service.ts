@@ -14,4 +14,7 @@ export class SongService {
     return this.http.get<any[]>(`${this.baseUrl}`);
   }
 
+  postSong(song: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl, song);
+  }
 }

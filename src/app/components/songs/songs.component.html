@@ -1,6 +1,22 @@
-<div class="container">
+<!-- songs.component.html -->
+<div>
     <h2>Listagem de Músicas</h2>
-    
+  
+    <!-- Formulário para adicionar nova música -->
+    <form (submit)="addSong()">
+      <label for="title">Título:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="newSong.title" required>
+  
+      <label for="artist">Artista:</label>
+      <input type="text" id="artist" name="artist" [(ngModel)]="newSong.artist" required>
+  
+      <label for="album">Álbum:</label>
+      <input type="text" id="album" name="album" [(ngModel)]="newSong.album" required>
+  
+      <button type="submit">Adicionar Música</button>
+    </form>
+  
+    <!-- Tabela de Músicas -->
     <table class="table">
       <thead>
         <tr>

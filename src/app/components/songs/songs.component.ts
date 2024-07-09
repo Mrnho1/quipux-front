@@ -9,6 +9,7 @@ import { SongService } from 'src/app/services/songs.service';
 })
 export class SongsComponent implements OnInit {
   songs: any[] = [];
+  newSong: any = {};
 
   constructor(private songService: SongService) { }
 
@@ -23,6 +24,18 @@ export class SongsComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error fetching songs:', error);
+      }
+    );
+  }
+  addSong() {
+    this.songService.postSong(this.newSong).subscribe(
+      (data) => {
+        console.log('Song added successfully:', data);
+        this.loadSongs();
+        this.newSong = {};
+      },
+      (error) => {
+        console.error('Error adding song:', error);
       }
     );
   }
