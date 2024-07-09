@@ -18,4 +18,7 @@ export class SongService {
     return this.http.post<any>(this.baseUrl, song);
   }
   
+  deleteSong(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
 }

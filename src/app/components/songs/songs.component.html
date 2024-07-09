@@ -1,40 +1,40 @@
-<div>
-    <div class="container">
-        <h2>Listagem de Músicas</h2>
-
-        <!-- Formulário para adicionar nova música -->
-        <form (submit)="addSong()">
-            <label for="title">Título:</label>
-            <input type="text" id="title" name="title" [(ngModel)]="newSong.title" required>
-
-            <label for="artist">Artista:</label>
-            <input type="text" id="artist" name="artist" [(ngModel)]="newSong.artist" required>
-
-            <label for="album">Álbum:</label>
-            <input type="text" id="album" name="album" [(ngModel)]="newSong.album" required>
-
-            <button type="submit">Adicionar Música</button>
-        </form>
-
-        <!-- Tabela de Músicas -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Artista</th>
-                    <th>Álbum</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let song of songs">
-                    <td>{{ song.id }}</td>
-                    <td>{{ song.title }}</td>
-                    <td>{{ song.artist }}</td>
-                    <td>{{ song.album }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-</div>
+<div class="container">
+    <h2>Listagem de Músicas</h2>
+  
+    
+    <form (submit)="addSong()">
+      <label for="title">Título:</label>
+      <input type="text" id="title" name="title" [(ngModel)]="newSong.title" required>
+  
+      <label for="artist">Artista:</label>
+      <input type="text" id="artist" name="artist" [(ngModel)]="newSong.artist" required>
+  
+      <label for="album">Álbum:</label>
+      <input type="text" id="album" name="album" [(ngModel)]="newSong.album" required>
+  
+      <button type="submit" [disabled]="!newSong.title || !newSong.artist || !newSong.album">Adicionar Música</button>
+    </form>
+  
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Artista</th>
+          <th>Álbum</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let song of songs">
+          <td>{{ song.id }}</td>
+          <td>{{ song.title }}</td>
+          <td>{{ song.artist }}</td>
+          <td>{{ song.album }}</td>
+          <td><button (click)="deleteSong(song.id)">Excluir</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
