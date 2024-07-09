@@ -14,6 +14,12 @@ export class SongService {
     return this.http.get<any[]>(`${this.apiUrl}`);
   }
 
-  
+  createSong(songData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}`, songData);
+  }
+
+  deleteSongByName(name: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/name/${name}`);
+  }
 }
 
